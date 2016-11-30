@@ -18,7 +18,7 @@ class SQLTable():
         print("EXECUTING COMMAND: " + query)
 
         # process
-        result = []
+        result = [tuple(self.fields())]
         cursor.execute(query)
         for row in cursor:
             result.append(row)
@@ -69,18 +69,6 @@ class SQLTable():
         # clean up
         self.close_connection(cnx, cursor)
 
-    # UTILS
-    @staticmethod
-    def init_connection():
-        cnx = mysql.connector.connect(user=USER, database=DATABASE)
-        cursor = cnx.cursor()
-        return (cnx, cursor)
-
-    @staticmethod
-    def close_connection(cnx, cursor):
-        cnx.close()
-        cursor.close()
-
     def fields(self):
         # init
         cnx, cursor = self.init_connection()
@@ -96,6 +84,8 @@ class SQLTable():
         self.close_connection(cnx, cursor)
 
         return result
+
+    # UTILS
 
     @staticmethod 
     def comma_separate(values):
@@ -117,3 +107,34 @@ class SQLTable():
             if value != "":
                 result += field + "=" + "\'" + value + "\'" + ","
         return result[:-1]
+
+    
+    # static methods
+
+    @staticmethod
+    def query(q):
+        # init
+        cnx, cursor = SQLTable.init_connection()
+
+        # process
+        result = []
+        cursor.execute(q)
+        for row in cursor:
+            result.append(row)
+
+        # clean up
+        SQLTable.close_connection(cnx, cursor)
+
+        return result
+
+    @staticmethod
+    def init_connection():
+        cnx = mysql.connector.connect(user=USER, database=DATABASE)
+        cursor = cnx.cursor()
+        return (cnx, cursor)
+
+    @staticmethod
+    def close_connection(cnx, cursor):
+        cnx.close()
+        cursor.close()
+

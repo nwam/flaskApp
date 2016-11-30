@@ -29,7 +29,6 @@ def login():
 def admin_movie():
     movieTable = SQLTable('movie', ' ORDER BY name ASC') 
     table = movieTable.query_all()
-    print(table)
     addForm = MovieAddForm()
     remForm = MovieRemForm()
     modForm = MovieModForm()
@@ -59,7 +58,6 @@ def admin_movie():
 def admin_room():
     roomTable = SQLTable('room', ' ORDER BY room_id ASC') 
     table = roomTable.query_all()
-    print(table)
     addForm = RoomAddForm()
     remForm = RoomRemForm()
     modForm = RoomModForm()
@@ -89,7 +87,6 @@ def admin_room():
 def admin_customer():
     customerTable = SQLTable('customer', ' ORDER BY last_name ASC') 
     table = customerTable.query_all()
-    print(table)
     addForm = CustomerAddForm()
     remForm = CustomerRemForm()
     modForm = CustomerModForm()
@@ -113,4 +110,18 @@ def admin_customer():
                             addForm=addForm,
                             remForm=remForm,
                             modForm=modForm)
+
+
+@app.route('/admin/attend')
+def admin_attend():
+    query = '''
+            SELECT customer_id, showing_id, rating, price first_name, last_name, date, time, name, movie_id  
+            FROM attend NATURAL JOIN customer NATURAL JOIN showing NATURAL JOIN movie
+            ORDER BY rating DESC
+            '''
+    table = SQLTable.query(query)
+
+    return render_template('table_view.html',
+                            title='Attends',
+                            table=table)
 

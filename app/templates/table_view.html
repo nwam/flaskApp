@@ -1,0 +1,15 @@
+{% include "base.html" %}
+<h1> {{ title }} </h1>
+{% block before_table %} {% endblock %}
+{% block content %}
+    <table>
+    {% for row in table %} 
+        <tr> 
+        {% for attribute in row %}
+            <td> {{ attribute }} </td>
+        {% endfor %}
+        <tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+{% block after_table %} {% endblock %}

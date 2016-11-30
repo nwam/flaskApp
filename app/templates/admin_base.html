@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% block content %}
-    <h1> {{ title }} </h1>
+{% extends "table_view.html" %}
+{% block before_table %}
 
     <h2> Add </h2>  
     {% block add %}{% endblock %}
@@ -12,14 +11,5 @@
     {% block modify %}{% endblock %}
 
     <h2> List </h2>
-    <table>
-    {% for row in table %} 
-        <tr> 
-        {% for attribute in row %}
-            <td> {{ attribute }} </td>
-        {% endfor %}
-        <tr>
-    {% endfor %}
-    </table>
 
 {% endblock %}
