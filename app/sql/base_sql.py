@@ -7,7 +7,7 @@ DATABASE = 'nmurad2db'
 # contains utility functions and some functions useful for every sql connector
 class SQLTable():
 
-    def __init__(self, table_name, eoss):
+    def __init__(self, table_name, eoss = ''):
        self.table_name = table_name
        self.end_of_select_statement = eoss
 
@@ -126,6 +126,18 @@ class SQLTable():
         SQLTable.close_connection(cnx, cursor)
 
         return result
+
+    @staticmethod
+    def command(c):
+        # init
+        cnx, cursor = SQLTable.init_connection()
+
+        # execute
+        cursor.execute(c)
+        cnx.commit()
+
+        # clean up
+        SQLTable.close_connection(cnx, cursor)
 
     @staticmethod
     def init_connection():

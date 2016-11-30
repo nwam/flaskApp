@@ -34,8 +34,8 @@ def admin_movie():
     modForm = MovieModForm()
 
     if addForm.validate_on_submit() and "addSubmit" in request.form:
-        flash('Successfully added ' + addForm.name.data + ' to database.')
         movieTable.insert(addForm.values())
+        flash('Successfully added ' + addForm.name.data + ' to database.')
         return redirect('/admin/movie')
 
     if remForm.validate_on_submit() and "remSubmit" in request.form:
@@ -63,8 +63,8 @@ def admin_room():
     modForm = RoomModForm()
 
     if addForm.validate_on_submit() and "addSubmit" in request.form:
-        flash('Successfully added ' + "a new room" + ' to database.')
         roomTable.insert(addForm.values())
+        flash('Successfully added ' + "a new room" + ' to database.')
         return redirect('/admin/room')
 
     if remForm.validate_on_submit() and "remSubmit" in request.form:
@@ -92,8 +92,8 @@ def admin_customer():
     modForm = CustomerModForm()
 
     if addForm.validate_on_submit() and "addSubmit" in request.form:
-        flash('Successfully added ' + "a new customer" + ' to database.')
         customerTable.insert(addForm.values())
+        flash('Successfully added ' + "a new customer" + ' to database.')
         return redirect('/admin/customer')
 
     if remForm.validate_on_submit() and "remSubmit" in request.form:
@@ -125,3 +125,56 @@ def admin_attend():
                             title='Attends',
                             table=table)
 
+
+@app.route('/admin/showing', methods=['GET', 'POST'])
+def admin_showing():
+    showingTable = SQLTable('showing', ' ORDER BY date, time') 
+    table = showingTable.query_all()
+    addForm = ShowingAddForm()
+    remForm = ShowingRemForm()
+    modForm = ShowingModForm()
+
+    if addForm.validate_on_submit() and "addSubmit" in request.form:
+        showingTable.insert(addForm.values())
+        flash('Successfully added ' + "a new showing" + ' to database.')
+        return redirect('/admin/showing')
+
+    if remForm.validate_on_submit() and "remSubmit" in request.form:
+        showingTable.remove(remForm.pk())
+        return redirect('/admin/showing')
+
+    if modForm.validate_on_submit() and "modSubmit" in request.form:
+        showingTable.modify(remForm.mod_value(), remForm.values())
+        return redirect('/admin/showing')
+
+    return render_template('admin_showing.html',
+                            title='Showings',
+                            table=table,
+                            addForm=addForm,
+                            remForm=remForm,
+                            modForm=modForm)
+
+
+@app.route('/admin/genre', methods=['GET', 'POST'])
+def admin_genre():
+    genreTable = SQLTable('genre') 
+    query = 'SELECT genre, name FROM genre NATURAL JOIN movie ORDER BY genre ASC'
+    table = genreTable.query(query)
+    addForm = GenreAddForm()
+    remForm = GenreRemForm()
+
+    if addForm.validate_on_submit() and "addSubmit" in request.form:
+        genreTable.insert(addForm.values())
+        flash('Successfully added ' + "a new genre" + ' to database.')
+        return redirect('/admin/genre')
+
+    if remForm.validate_on_submit() and "remSubmit" in request.form:
+        removeCommand = 'DELETE FROM genre WHERE genre.genre = \'' + remForm.genre.data + '\' AND genre.movie_id = \'' + remForm.movie_id.data + '\''
+        genreTable.command(removeCommand)
+        return redirect('/admin/genre')
+        
+    return render_template('admin_genre.html',
+                            title='Genres',
+                            table=table,
+                            addForm=addForm,
+                            remForm=remForm)

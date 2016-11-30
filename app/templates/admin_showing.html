@@ -1,0 +1,73 @@
+{% extends "admin_base.html" %}
+{% block add %} 
+    <form action="" method="post" name="add">
+    <table>
+        <tr>
+            <td> {{ addForm.id.label }} </td> 
+            <td> {{ addForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.movie_id.label }} </td> 
+            <td> {{ addForm.movie_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.room_id.label }} </td> 
+            <td> {{ addForm.room_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.date.label }} </td> 
+            <td> {{ addForm.date }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.time.label }} </td> 
+            <td> {{ addForm.time }} </td>
+        </tr>
+    </table>
+    <p> {{ addForm.addSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block remove %} 
+    <form action="" method="post" name="remove">
+    <table>
+        <tr>
+            <td> {{ remForm.id.label }} </td> 
+            <td> {{ remForm.id }} </td>
+        </tr>
+    </table>
+    <p> {{ remForm.remSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block modify %} 
+    <form action="" method="post" name="modify">
+    <table>
+        <tr>
+            <td> {{ modForm.current_id.label }} </td> 
+            <td> {{ modForm.current_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.id.label }} </td> 
+            <td> {{ modForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.movie_id.label }} </td> 
+            <td> {{ modForm.movie_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.room_id.label }} </td> 
+            <td> {{ modForm.room_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.date.label }} </td> 
+            <td> {{ modForm.date }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.time.label }} </td> 
+            <td> {{ modForm.time }} </td>
+        </tr>
+    </table>
+    <p> {{ modForm.modSubmit }} </p>
+    </form>
+
+{% endblock %}

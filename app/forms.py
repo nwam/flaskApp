@@ -75,3 +75,41 @@ class CustomerRemForm(FlaskForm, CustomerForm):
 class CustomerModForm(FlaskForm, CustomerForm):
     modSubmit = SubmitField("Modify")
 
+# SHOWING # 
+class ShowingForm():
+    id = StringField('ID') 
+    movie_id = StringField('Movie ID')
+    room_id= StringField('Room ID')
+    date = StringField('Date')
+    time = StringField('Time')
+    current_id = StringField('Current ID')
+
+    def pk(self):
+        return self.id.data
+
+    def mod_value(self):
+        return self.current_id.data
+
+    def values(self):
+        return [self.id.data, self.movie_id.data, self.room_id.data, self.date.data, self.time.data]
+
+class ShowingAddForm(FlaskForm, ShowingForm):
+    addSubmit = SubmitField("Add")
+class ShowingRemForm(FlaskForm, ShowingForm):
+    remSubmit = SubmitField("Remove")
+class ShowingModForm(FlaskForm, ShowingForm):
+    modSubmit = SubmitField("Modify")
+
+
+# GENRE #
+class GenreForm():
+    movie_id = StringField('Movie ID')
+    genre = StringField('Genre') 
+
+    def values(self):
+        return [ self.movie_id.data, self.genre.data]
+
+class GenreAddForm(FlaskForm, GenreForm):
+    addSubmit = SubmitField("Add")
+class GenreRemForm(FlaskForm, GenreForm):
+    remSubmit = SubmitField("Remove")

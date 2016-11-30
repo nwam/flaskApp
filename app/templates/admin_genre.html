@@ -1,0 +1,36 @@
+{% extends "admin_base.html" %}
+{% block add %} 
+    <form action="" method="post" name="add">
+    <table>
+        <tr>
+            <td> {{ addForm.genre.label }} </td> 
+            <td> {{ addForm.genre }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.movie_id.label }} </td> 
+            <td> {{ addForm.movie_id }} </td>
+        </tr>
+    </table>
+    <p> {{ addForm.addSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block remove %} 
+    <form action="" method="post" name="remove">
+    <table>
+        <tr>
+            <td> {{ remForm.genre.label }} </td> 
+            <td> {{ remForm.genre }} </td>
+        </tr>
+        <tr>
+            <td> {{ remForm.movie_id.label }} </td> 
+            <td> {{ remForm.movie_id }} </td>
+        </tr>
+    </table>
+    <p> {{ remForm.remSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block modify %} 
+    <p> Genres cannot be modified </p>
+{% endblock %}
