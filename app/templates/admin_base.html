@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1> {{ title }} </h1>
+
+    <h2> Add </h2>  
+    {% block add %}{% endblock %}
+
+    <h2> Remove </h2>  
+    {% block remove %}{% endblock %}
+
+    <h2> Modify </h2>
+    {% block modify %}{% endblock %}
+
+    <h2> List </h2>
+    <table>
+    {% for row in table %} 
+        <tr> 
+        {% for attribute in row %}
+            <td> {{ attribute }} </td>
+        {% endfor %}
+        <tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

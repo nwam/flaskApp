@@ -1,0 +1,57 @@
+{% extends "admin_base.html" %}
+{% block add %} 
+    <form action="" method="post" name="add">
+    <table>
+        <tr>
+            <td> {{ addForm.id.label }} </td> 
+            <td> {{ addForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.name.label }} </td> 
+            <td> {{ addForm.name }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.year.label }} </td> 
+            <td> {{ addForm.year }} </td>
+        </tr>
+    </table>
+    <p> {{ addForm.addSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block remove %} 
+    <form action="" method="post" name="remove">
+    <table>
+        <tr>
+            <td> {{ remForm.id.label }} </td> 
+            <td> {{ remForm.id }} </td>
+        </tr>
+    </table>
+    <p> {{ remForm.remSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block modify %} 
+    <form action="" method="post" name="modify">
+    <table>
+        <tr>
+            <td> {{ modForm.current_id.label }} </td> 
+            <td> {{ modForm.current_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.id.label }} </td> 
+            <td> {{ modForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.name.label }} </td> 
+            <td> {{ modForm.name }} </td>
+        </tr>
+        <tr>
+            <td> {{ modForm.year.label }} </td> 
+            <td> {{ modForm.year }} </td>
+        </tr>
+    </table>
+    <p> {{ modForm.modSubmit }} </p>
+    </form>
+
+{% endblock %}
