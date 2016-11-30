@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
 
+# MOVIE # 
 class MovieForm():
     id = StringField('ID') 
     name = StringField('Name')
@@ -26,3 +27,26 @@ class MovieRemForm(FlaskForm, MovieForm):
     remSubmit = SubmitField("Remove")
 class MovieModForm(FlaskForm, MovieForm):
     modSubmit = SubmitField("Modify")
+
+# ROOM # 
+class RoomForm():
+    id = StringField('ID') 
+    capacity = StringField('Capacity')
+    current_id = StringField('Current ID')
+
+    def pk(self):
+        return self.id.data
+
+    def mod_value(self):
+        return self.current_id.data
+
+    def values(self):
+        return [self.id.data, self.capacity.data]
+
+class RoomAddForm(FlaskForm, RoomForm):
+    addSubmit = SubmitField("Add")
+class RoomRemForm(FlaskForm, RoomForm):
+    remSubmit = SubmitField("Remove")
+class RoomModForm(FlaskForm, RoomForm):
+    modSubmit = SubmitField("Modify")
+

@@ -54,3 +54,33 @@ def admin_movie():
                             remForm=remForm,
                             modForm=modForm)
 
+
+@app.route('/admin/room', methods=['GET', 'POST'])
+def admin_room():
+    roomTable = SQLTable('room', ' ORDER BY room_id ASC') 
+    table = roomTable.query_all()
+    print(table)
+    addForm = RoomAddForm()
+    remForm = RoomRemForm()
+    modForm = RoomModForm()
+
+    if addForm.validate_on_submit() and "addSubmit" in request.form:
+        flash('Successfully added ' + "a new room" + ' to database.')
+        roomTable.insert(addForm.values())
+        return redirect('/admin/room')
+
+    if remForm.validate_on_submit() and "remSubmit" in request.form:
+        roomTable.remove(remForm.pk())
+        return redirect('/admin/room')
+
+    if modForm.validate_on_submit() and "modSubmit" in request.form:
+        roomTable.modify(remForm.mod_value(), remForm.values())
+        return redirect('/admin/room')
+
+    return render_template('admin_room.html',
+                            title='Rooms',
+                            table=table,
+                            addForm=addForm,
+                            remForm=remForm,
+                            modForm=modForm)
+
