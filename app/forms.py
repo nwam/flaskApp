@@ -50,3 +50,28 @@ class RoomRemForm(FlaskForm, RoomForm):
 class RoomModForm(FlaskForm, RoomForm):
     modSubmit = SubmitField("Modify")
 
+# CUSTOMER # 
+class CustomerForm():
+    id = StringField('ID') 
+    first_name = StringField('First Name')
+    last_name = StringField('Last Name')
+    sex = StringField('Sex')
+    email = StringField('Email')
+    current_id = StringField('Current ID')
+
+    def pk(self):
+        return self.id.data
+
+    def mod_value(self):
+        return self.current_id.data
+
+    def values(self):
+        return [self.id.data, self.first_name.data, self.last_name.data, self.sex.data, self.email.data]
+
+class CustomerAddForm(FlaskForm, CustomerForm):
+    addSubmit = SubmitField("Add")
+class CustomerRemForm(FlaskForm, CustomerForm):
+    remSubmit = SubmitField("Remove")
+class CustomerModForm(FlaskForm, CustomerForm):
+    modSubmit = SubmitField("Modify")
+

@@ -1,0 +1,73 @@
+{% extends "admin_base.html" %}
+{% block add %} 
+    <form action="" method="post" name="add">
+    <table>
+        <tr>
+            <td> {{ addForm.id.label }} </td> 
+            <td> {{ addForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.first_name.label }} </td> 
+            <td> {{ addForm.first_name }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.last_name.label }} </td> 
+            <td> {{ addForm.last_name }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.sex.label }} </td> 
+            <td> {{ addForm.sex }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.email.label }} </td> 
+            <td> {{ addForm.email }} </td>
+        </tr>
+    </table>
+    <p> {{ addForm.addSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block remove %} 
+    <form action="" method="post" name="remove">
+    <table>
+        <tr>
+            <td> {{ remForm.id.label }} </td> 
+            <td> {{ remForm.id }} </td>
+        </tr>
+    </table>
+    <p> {{ remForm.remSubmit }} </p>
+    </form>
+{% endblock %}
+
+{% block modify %} 
+    <form action="" method="post" name="modify">
+    <table>
+        <tr>
+            <td> {{ modForm.current_id.label }} </td> 
+            <td> {{ modForm.current_id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.id.label }} </td> 
+            <td> {{ addForm.id }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.first_name.label }} </td> 
+            <td> {{ addForm.first_name }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.last_name.label }} </td> 
+            <td> {{ addForm.last_name }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.sex.label }} </td> 
+            <td> {{ addForm.sex }} </td>
+        </tr>
+        <tr>
+            <td> {{ addForm.email.label }} </td> 
+            <td> {{ addForm.email }} </td>
+        </tr>
+    </table>
+    <p> {{ modForm.modSubmit }} </p>
+    </form>
+
+{% endblock %}

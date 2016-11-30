@@ -84,3 +84,33 @@ def admin_room():
                             remForm=remForm,
                             modForm=modForm)
 
+
+@app.route('/admin/customer', methods=['GET', 'POST'])
+def admin_customer():
+    customerTable = SQLTable('customer', ' ORDER BY last_name ASC') 
+    table = customerTable.query_all()
+    print(table)
+    addForm = CustomerAddForm()
+    remForm = CustomerRemForm()
+    modForm = CustomerModForm()
+
+    if addForm.validate_on_submit() and "addSubmit" in request.form:
+        flash('Successfully added ' + "a new customer" + ' to database.')
+        customerTable.insert(addForm.values())
+        return redirect('/admin/customer')
+
+    if remForm.validate_on_submit() and "remSubmit" in request.form:
+        customerTable.remove(remForm.pk())
+        return redirect('/admin/customer')
+
+    if modForm.validate_on_submit() and "modSubmit" in request.form:
+        customerTable.modify(remForm.mod_value(), remForm.values())
+        return redirect('/admin/customer')
+
+    return render_template('admin_customer.html',
+                            title='Customers',
+                            table=table,
+                            addForm=addForm,
+                            remForm=remForm,
+                            modForm=modForm)
+
