@@ -22,6 +22,22 @@ class SQL():
         return result
 
     @staticmethod
+    def parameterized_query(q,parameters):
+        # init
+        cnx, cursor = SQLTable.init_connection()
+
+        # process
+        result = []
+        cursor.execute(q,parameters)
+        for row in cursor:
+            result.append(row)
+
+        # clean up
+        SQLTable.close_connection(cnx, cursor)
+
+        return result
+
+    @staticmethod
     def command(c):
         # init
         cnx, cursor = SQLTable.init_connection()

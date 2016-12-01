@@ -29,3 +29,24 @@ class SearchForm(OrderedForm):
                 'SELECT genre FROM genre GROUP BY genre ORDER BY genre')])
     notFull = BooleanField("Available")
     submit = SubmitField("Search")
+
+class BuyForm(OrderedForm):
+    # Although the instructions say to select their name, if there are two of the same names, this will case many
+    # problems, so I'm using the PK
+    customer_id = StringField("Customer ID")
+    showing_id = StringField("Showing ID")
+    price = StringField("Price")
+    submit = SubmitField("Buy")
+
+    def values(self):
+        return [self.customer_id.data, self.showing_id.data, self.price.data, '']
+
+class RateForm(OrderedForm):
+    customer_id = StringField("Customer ID")
+    showing_id = StringField("Showing ID")
+    rating = SelectField("Rating", choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
+    submit = SubmitField("Rate")
+
+class UserForm(OrderedForm):
+    customer_id = StringField("Customer ID")
+    submit = SubmitField("View")
