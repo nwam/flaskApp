@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, request
 from app import app
-from .forms import *
+from .admin_forms import *
 
 from app.sql.base_sql import SQLTable
 
@@ -158,7 +158,7 @@ def admin_showing():
 @app.route('/admin/genre', methods=['GET', 'POST'])
 def admin_genre():
     genreTable = SQLTable('genre') 
-    query = 'SELECT genre, name FROM genre NATURAL JOIN movie ORDER BY genre ASC'
+    query = 'SELECT genre, name FROM genre NATURAL JOIN movie ORDER BY genre ASC, name ASC'
     table = genreTable.query(query)
     addForm = GenreAddForm()
     remForm = GenreRemForm()

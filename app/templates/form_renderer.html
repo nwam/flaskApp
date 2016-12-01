@@ -1,0 +1,16 @@
+{% extends "table_view.html" %}
+{% block before_table %} 
+    <form action="" method="post">
+    <table>
+    {% for field in form %} 
+        <tr>
+        {% if field.type != "SubmitField" and field.type != "CSRFTokenField" %}
+            <td> {{ field.label }} </td>
+            <td> {{ field }} </td>
+        {% endif %}
+       <tr>
+    {% endfor %}
+    </table>
+    <p> {{ form.submit }} </p>
+    </form>
+{% endblock %}

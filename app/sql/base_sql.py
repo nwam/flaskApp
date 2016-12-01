@@ -4,8 +4,48 @@ COLUMN_NAME_INDEX = 0
 USER = 'root'
 DATABASE = 'nmurad2db'
 
-# contains utility functions and some functions useful for every sql connector
-class SQLTable():
+class SQL():
+    @staticmethod
+    def query(q):
+        # init
+        cnx, cursor = SQLTable.init_connection()
+
+        # process
+        result = []
+        cursor.execute(q)
+        for row in cursor:
+            result.append(row)
+
+        # clean up
+        SQLTable.close_connection(cnx, cursor)
+
+        return result
+
+    @staticmethod
+    def command(c):
+        # init
+        cnx, cursor = SQLTable.init_connection()
+
+        # execute
+        cursor.execute(c)
+        cnx.commit()
+
+        # clean up
+        SQLTable.close_connection(cnx, cursor)
+
+    @staticmethod
+    def init_connection():
+        cnx = mysql.connector.connect(user=USER, database=DATABASE)
+        cursor = cnx.cursor()
+        return (cnx, cursor)
+
+    @staticmethod
+    def close_connection(cnx, cursor):
+        cnx.close()
+        cursor.close()
+
+
+class SQLTable(SQL):
 
     def __init__(self, table_name, eoss = ''):
        self.table_name = table_name
@@ -107,46 +147,3 @@ class SQLTable():
             if value != "":
                 result += field + "=" + "\'" + value + "\'" + ","
         return result[:-1]
-
-    
-    # static methods
-
-    @staticmethod
-    def query(q):
-        # init
-        cnx, cursor = SQLTable.init_connection()
-
-        # process
-        result = []
-        cursor.execute(q)
-        for row in cursor:
-            result.append(row)
-
-        # clean up
-        SQLTable.close_connection(cnx, cursor)
-
-        return result
-
-    @staticmethod
-    def command(c):
-        # init
-        cnx, cursor = SQLTable.init_connection()
-
-        # execute
-        cursor.execute(c)
-        cnx.commit()
-
-        # clean up
-        SQLTable.close_connection(cnx, cursor)
-
-    @staticmethod
-    def init_connection():
-        cnx = mysql.connector.connect(user=USER, database=DATABASE)
-        cursor = cnx.cursor()
-        return (cnx, cursor)
-
-    @staticmethod
-    def close_connection(cnx, cursor):
-        cnx.close()
-        cursor.close()
-
