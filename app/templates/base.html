@@ -1,14 +1,12 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - Movie Manager</title>
+    <title>{{ title }}|Movie Manager</title>
     {% else %}
-    <title>Welcome to Movie Manager</title>
+    <title>Movie Manager</title>
     {% endif %}
   </head>
   <body>
-    <div>Movie Manager: <a href="/index">Home</a></div>
-    <hr>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>

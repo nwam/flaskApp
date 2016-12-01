@@ -113,3 +113,4 @@ class GenreAddForm(FlaskForm, GenreForm):
     addSubmit = SubmitField("Add")
 class GenreRemForm(FlaskForm, GenreForm):
     remSubmit = SubmitField("Remove")
+

@@ -23,7 +23,7 @@ class SearchForm(OrderedForm):
                 'SELECT date FROM showing GROUP BY date ORDER BY date')])
     endDate = SelectField("End Date", 
             choices=[(c[0],c[0]) for c in SQL.query(
-                'SELECT date FROM showing GROUP BY date ORDER BY date DESC')])
+                'SELECT date FROM showing GROUP BY date ORDER BY date')])
     genre = SelectField("Genre", 
             choices=[('ALL_GENRES', 'All')] + [(c[0],c[0]) for c in SQL.query(
                 'SELECT genre FROM genre GROUP BY genre ORDER BY genre')])

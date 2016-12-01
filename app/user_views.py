@@ -4,7 +4,11 @@ from .user_forms import *
 
 from sql.base_sql import SQL, SQLTable
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/user')
+def user_landing():
+    return render_template('user_base.html')
+
+@app.route('/user/search', methods=['GET', 'POST'])
 def user_search():
     form = SearchForm() 
     table = []
@@ -16,25 +20,29 @@ def user_search():
                 '(SELECT showing_id, \'Yes\' AS available FROM (SELECT showing_id, COUNT(customer_id) as attendees, capacity '
                 'FROM showing NATURAL LEFT JOIN attend NATURAL JOIN room GROUP BY showing_id) AS '
                 'showing_attendees  WHERE attendees < capacity) AS full_showings '
-            'WHERE name LIKE CONCAT(\'%\',\'' + request.form.get('movieTitle') + '\', \'%\') '
-            'AND date >= \'' + request.form.get('startDate') + '\' '
-            'AND date <= \'' + request.form.get('endDate') + '\' ')
+            'WHERE name LIKE CONCAT(\'%\',\'{}\', \'%\') '
+            'AND date >= \'{}\' '
+            'AND date <= \'{}\' '
+            ).format(str(request.form.get('movieTitle')), str(request.form.get('startDate')),
+                str(request.form.get('endDate')))
+
     if request.form.get('genre') != 'ALL_GENRES': 
-        query += 'AND genre = \'' + request.form.get('genre') +  '\' '
+        query += 'AND genre = \'' + str(request.form.get('genre')) +  '\' '
+
     if request.form.get('notFull'):
         query += 'AND available LIKE \'Yes\''
 
     table = [('Showing ID', 'Movie Title', 'Date', 'Time', 'Available')] + SQL.query(query)
 
     if form.validate_on_submit():
-        redirect('/search')
+        redirect('/user/search')
 
     return render_template('search.html',
                             title = 'Find Showings',
                             form=form,
                             table=table)
 
-@app.route('/buy', methods=['GET', 'POST'])
+@app.route('/user/buy', methods=['GET', 'POST'])
 def user_buy():
     attendTable = SQLTable('attend') 
     form = BuyForm()
@@ -42,13 +50,13 @@ def user_buy():
     if form.validate_on_submit():
         attendTable.insert(form.values())
         flash ('You bought tiks')
-        redirect('/buy') 
+        redirect('/user/buy') 
 
     return render_template('form_renderer.html',
                             title='Buy',
                             form=form)
 
-@app.route('/rate', methods=['GET', 'POST'])
+@app.route('/user/rate', methods=['GET', 'POST'])
 def user_rate():
     form = RateForm()
 
@@ -61,14 +69,14 @@ def user_rate():
                     ' AND showing_id = \'' + form.showing_id.data + '\'')
         SQL.command(command)
         flash ('Thanks for rating')
-        redirect('/rate') 
+        redirect('/user/rate') 
 
     return render_template('form_renderer.html',
                             title='Rate',
                             form=form)
 
 
-@app.route('/movielog', methods=['GET', 'POST'])
+@app.route('/user/movielog', methods=['GET', 'POST'])
 def user_movie():
     form = UserForm()
     table = []
@@ -79,7 +87,7 @@ def user_movie():
     table = [('Name', 'Rating')] + SQL.query(query)
     
     if form.validate_on_submit():
-        redirect('/movielog') 
+        redirect('/user/movielog') 
 
     return render_template('search.html',
                             title='Movie Log',
@@ -87,7 +95,7 @@ def user_movie():
                             form=form)
 
 
-@app.route('/userinfo', methods=['GET', 'POST'])
+@app.route('/user/info', methods=['GET', 'POST'])
 def user_info():
     form = UserForm()
     table = []
@@ -97,7 +105,7 @@ def user_info():
     table =  SQL.query(query)
     
     if form.validate_on_submit():
-        redirect('/userinfo') 
+        redirect('/user/info') 
 
     return render_template('search.html',
                             title='User Info',

@@ -1,4 +1,14 @@
 {% extends "table_view.html" %}
+{% block navbar %}
+<div>
+    <a href='/index'>Home</a>
+    <a href='/admin/movie'>Movies</a>
+    <a href='/admin/customer'>Customers</a>
+    <a href='/admin/showing'>Showings</a>
+    <a href='/admin/room'>Rooms</a>
+    <a href='/admin/genre'>Genres</a>
+</div>
+{% endblock %}
 {% block before_table %}
 
     <h2> Add </h2>  

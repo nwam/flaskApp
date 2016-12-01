@@ -4,26 +4,10 @@ from .admin_forms import *
 
 from app.sql.base_sql import SQLTable
 
-@app.route('/')
-@app.route('/index')
-def index():
-    user = {'nickname': 'nwam'}  # fake user
-    return render_template('index.html',
-                           title='Home',
-                           user=user)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for "%s"' %
-            (form.username.data))
-        return redirect('/index')
-    return render_template('login.html',
-                            title='Sign In',
-                            form=form)
-
 ## backend views ## 
+@app.route('/admin')
+def admin_landing():
+    return render_template('admin_landing.html')
 
 @app.route('/admin/movie', methods=['GET', 'POST'])
 def admin_movie():
